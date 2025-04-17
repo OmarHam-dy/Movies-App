@@ -30,6 +30,7 @@
     "react-native-reanimated-carousel": "^4.0.2",
     "react-native-safe-area-context": "^5.3.0",
     "react-native-shadow-2": "^7.1.1",
+    "react-native-svg": "^15.11.2",
     "react-native-web": "~0.19.13",
     "tailwindcss": "^3.4.17"
   },

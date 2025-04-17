@@ -1,10 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TextComponent, View } from "react-native";
 import HomeScreen from "./src/screens/HomeScreen";
 import AppNavigation from "./src/navigation/AppNavigation";
 import "./global.css";
 
 export default function App() {
+  Text.defaultProps = Text.defaultProps  || {};
+  Text.defaultProps = Text.defaultProps.style = {
+    fontFamily: 'Rosemary'
+  }
   return <AppNavigation />;
 }
 
