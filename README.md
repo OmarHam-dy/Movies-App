@@ -13,11 +13,11 @@
 
 ## Overview
 
-![screens](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/App-Designs/5.png)
-![screens](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/App-Designs/1.png)
-![screens](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/App-Designs/2.png)
-![screens](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/App-Designs/3.png)
-![screens](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/App-Designs/4.png)
+![screens](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/App-Designs/5.jpg)
+![screens](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/App-Designs/1.jpg)
+![screens](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/App-Designs/2.jpg)
+![screens](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/App-Designs/3.jpg)
+![screens](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/App-Designs/4.jpg)
 
 
 ### Built With
