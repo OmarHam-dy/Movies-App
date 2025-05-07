@@ -1,55 +1,56 @@
 import { useState } from "react";
-import { View, TextInput, Button, Text, TouchableOpacity } from "react-native";
-import users from "../data/users.json";
+import { View, TextInput, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../firebase-config";
+import LoadingScreen from "./LoadingScreen";
 
 function RegistrationScreen() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
   const navigation = useNavigation();
 
-  const handleRegister = () => {
-    const trimmedName = name.trim();
-    const trimmedEmail = email.trim();
-    const trimmedPassword = password.trim();
-
-    if (!trimmedName || !trimmedEmail || !trimmedPassword) {
-      setErrorMessage("Please fill in all fields");
-      return;
-    }
-
+  async function handleRegister() {
     if (password.length < 6) {
       setErrorMessage("Password must be at least 6 characters long");
       return;
     }
 
-    if (!/\S+@\S+\.\S+/.test(trimmedEmail)) {
+    if (!/\S+@\S+\.\S+/.test(email)) {
       setErrorMessage("Please enter a valid email address");
       return;
     }
 
-    navigation.navigate("Login");
-    return;
+    try {
+      setLoading(true);
+      const userCreds = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-    if (users.some((user) => user.email === trimmedEmail)) {
-      setErrorMessage("Email already exists");
-      return;
+      await updateProfile(userCreds.user, {
+        displayName: name,
+      });
+
+      setName("");
+      setEmail("");
+      setPassword("");
+      setErrorMessage("");
+
+      navigation.navigate("Login");
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    users.push({
-      trimmedName,
-      trimmedEmail,
-      trimmedPassword,
-    });
-
-    setName("");
-    setEmail("");
-    setPassword("");
-
-    navigation.navigate("Login");
-  };
+  if (loading) return <LoadingScreen />;
 
   return (
     <View className="flex-1 justify-center px-4 bg-white">

@@ -3,9 +3,14 @@ import { StyleSheet, Text, View } from "react-native";
 import HomeScreen from "./src/screens/HomeScreen";
 import AppNavigation from "./src/navigation/AppNavigation";
 import "./global.css";
+import { AuthProvider } from "./src/contexts/AuthProvider";
 
 export default function App() {
-  return <AppNavigation />;
+  return (
+    <AuthProvider>
+      <AppNavigation />
+    </AuthProvider>
+  );
 }
 
 const styles = StyleSheet.create({

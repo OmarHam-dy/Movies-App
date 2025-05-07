@@ -1,41 +1,50 @@
 import { useNavigation } from "@react-navigation/core";
 import { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
-import users from "../data/users.json";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase-config";
+import { useAuth } from "../contexts/AuthProvider";
+import LoadingScreen from "./LoadingScreen";
 
 const LoginScreen = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const { setCurrentUser } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  const handleLogin = () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setCurrentUser(user);
+      navigation.navigate("Home");
+    }
+  });
+  async function handleLogin() {
     if (!email || !password) {
       setErrorMessage("Please fill in all fields");
       return;
     }
 
-    const user = users.find((user) => user.email === email);
+    try {
+      setLoading(true);
+      const userCreds = await signInWithEmailAndPassword(auth, email, password);
+      setCurrentUser(userCreds.user);
 
-    navigation.navigate("Home");
-    return;
+      setEmail("");
+      setPassword("");
+      setErrorMessage("");
 
-    if (!user) {
-      setErrorMessage("User not found, chek your email and password");
-      return;
+      navigation.navigate("Home");
+    } catch (err) {
+      setErrorMessage("Invalid email or password");
+      console.log(err.message);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    if (user.password !== password) {
-      setErrorMessage("Incorrect password");
-      return;
-    }
-
-    setEmail("");
-    setPassword("");
-
-    navigation.navigate("Home");
-  };
-
+  if (loading) return <LoadingScreen />;
   return (
     <View className="flex-1 bg-white justify-center items-center px-6">
       <Text className="text-2xl font-bold text-gray-800 mb-6">
