@@ -104,18 +104,20 @@ function SearchScreen() {
               </View>
             ) : (
               <View className="flex-row justify-center">
-                <Text className="text-neutral-500 font-semibold text-base">
+                {/* <Text className="text-neutral-500 font-semibold text-base">
                   No results found...
-                </Text>
-                {/* <Image
-                  source={{
-                    uri: "https://png.pngtree.com/png-clipart/20190619/original/pngtree-search-vector-icon-png-image_4017384.jpg",
-                  }}
+                </Text> */}
+                <Image
+                  source={require("../../assets/images/magnifying-glass.png")}
                   style={{
-                    width: window.width * 0.8,
-                    height: window.height * 0.6,
+                    width: window.width * 0.6,
+                    height: window.height * 0.4,
+                    position: "absolute",
+                    top: window.height * 0.2,
+                    left: window.width * 0.2,
+                    opacity: 0.5,
                   }}
-                /> */}
+                />
               </View>
             )}
           </ScrollView>
