@@ -90,30 +90,30 @@ function FavoriteActorsScreen() {
         }}
         className="space-y-3"
       >
-        {favoriteActors.length === 0 ? (
+        {favoriteActors?.length === 0 ? (
           <Text className="text-gray-400 text-xl text-center">
             Not there actors yet...
           </Text>
         ) : (
           <View className="flex-row justify-between flex-wrap">
-            {favoriteActors.map((movie) => {
+            {favoriteActors.map((actor) => {
               return (
-                <View key={movie.id}>
+                <View key={actor.id}>
                   <View className="space-y-2 mb-4">
                     <View className="flex items-center">
-                      <TouchableOpacity onPress={() => deleteActor(movie.id)}>
+                      <TouchableOpacity onPress={() => deleteActor(actor.id)}>
                         <TrashIcon color={"white"} size={30} />
                       </TouchableOpacity>
                     </View>
                     <TouchableWithoutFeedback
-                      onPress={() => navigation.navigate("Movie", movie)}
+                      onPress={() => navigation.navigate("Person", actor)}
                     >
                       <View>
                         <Image
                           // source={require("../../assets/images/poster2.webp")}
                           source={{
                             uri:
-                              image500(movie.poster_path) ||
+                              image500(actor.profile_path) ||
                               fullbackPersonImage,
                           }}
                           className="rounded-3xl mt-3"
@@ -123,9 +123,9 @@ function FavoriteActorsScreen() {
                           }}
                         />
                         <Text className="text-neutral-300 ml-1">
-                          {movie.title.length > 15
-                            ? movie.title.slice(0, 15) + "..."
-                            : movie.title}
+                          {actor.name?.length > 15
+                            ? actor.name.slice(0, 15) + "..."
+                            : actor.name}
                         </Text>
                       </View>
                     </TouchableWithoutFeedback>
