@@ -14,12 +14,14 @@ const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setCurrentUser(user);
-      navigation.navigate("Home");
-    }
-  });
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     setCurrentUser(user);
+  //     navigation.navigate("Home");
+  //   }
+  //   setLoading(false);
+  // });
+
   async function handleLogin() {
     if (!email || !password) {
       setErrorMessage("Please fill in all fields");

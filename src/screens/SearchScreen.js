@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/core";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Image } from "react-native";
 import {
   Dimensions,
@@ -13,14 +13,29 @@ import {
 } from "react-native";
 import { XMarkIcon } from "react-native-heroicons/outline";
 import LoadingScreen from "./LoadingScreen";
+import { debounce, set } from "lodash";
+import { fetchSearchMovies, image500 } from "../api/moviesdb";
+import { fullbackMoviePosterImage } from "../utils/constants";
 
-const movieName = "In the Lost Lands";
 const window = Dimensions.get("window");
 
 function SearchScreen() {
   const navigation = useNavigation();
-  const [results, setResults] = useState([1, 2, 3]);
+  const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  async function handleSearch(query) {
+    try {
+      setLoading(true);
+      const data = await fetchSearchMovies(query);
+      setResults(data.results);
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+  const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
 
   return (
     <SafeAreaView className="bg-neutral-900 flex-1 pt-10">
@@ -28,6 +43,7 @@ function SearchScreen() {
         <TextInput
           placeholder="Search Movie..."
           placeholderTextColor="lightgray"
+          onChangeText={handleTextDebounce}
           className="py-1 pl-6 flex-1 text-base font-semibold text-white tracking-wider"
         />
         <TouchableOpacity
@@ -56,15 +72,20 @@ function SearchScreen() {
             </Text>
             {results.length > 0 ? (
               <View className="flex-row justify-between flex-wrap">
-                {results.map((item, index) => {
+                {results.map((item) => {
                   return (
                     <TouchableWithoutFeedback
-                      key={index}
+                      key={item.id}
                       onPress={() => navigation.push("Movie", item)}
                     >
                       <View className="space-y-2 mb-4">
                         <Image
-                          source={require("../../assets/images/poster2.webp")}
+                          // source={require("../../assets/images/poster2.webp")}
+                          source={{
+                            uri:
+                              image500(item.poster_path) ||
+                              fullbackMoviePosterImage,
+                          }}
                           className="rounded-3xl"
                           style={{
                             width: window.width * 0.44,
@@ -72,9 +93,9 @@ function SearchScreen() {
                           }}
                         />
                         <Text className="text-neutral-300 ml-1">
-                          {movieName.length > 22
-                            ? movieName.slice(0, 22) + "..."
-                            : movieName}
+                          {item.title.length > 15
+                            ? item.title.slice(0, 15) + "..."
+                            : item.title}
                         </Text>
                       </View>
                     </TouchableWithoutFeedback>
@@ -86,6 +107,15 @@ function SearchScreen() {
                 <Text className="text-neutral-500 font-semibold text-base">
                   No results found...
                 </Text>
+                {/* <Image
+                  source={{
+                    uri: "https://png.pngtree.com/png-clipart/20190619/original/pngtree-search-vector-icon-png-image_4017384.jpg",
+                  }}
+                  style={{
+                    width: window.width * 0.8,
+                    height: window.height * 0.6,
+                  }}
+                /> */}
               </View>
             )}
           </ScrollView>

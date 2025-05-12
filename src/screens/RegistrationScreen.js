@@ -2,8 +2,9 @@ import { useState } from "react";
 import { View, TextInput, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../../firebase-config";
+import { auth, db } from "../../firebase-config";
 import LoadingScreen from "./LoadingScreen";
+import { addDoc, collection } from "firebase/firestore";
 
 function RegistrationScreen() {
   const [name, setName] = useState("");
@@ -11,6 +12,7 @@ function RegistrationScreen() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const usersCollectionRef = collection(db, "users");
 
   const navigation = useNavigation();
 
@@ -35,6 +37,12 @@ function RegistrationScreen() {
 
       await updateProfile(userCreds.user, {
         displayName: name,
+      });
+
+      await addDoc(usersCollectionRef, {
+        email: email,
+        favoriteMovies: [],
+        favoriteActors: [],
       });
 
       setName("");

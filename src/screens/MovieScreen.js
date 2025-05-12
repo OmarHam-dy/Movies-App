@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from "@react-navigation/core";
 import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dimensions,
   Image,
@@ -16,6 +16,23 @@ import { ChevronLeftIcon, HeartIcon } from "react-native-heroicons/solid";
 import Cast from "../components/Cast";
 import MoviesList from "../components/MoviesList";
 import LoadingScreen from "./LoadingScreen";
+import { fullbackMoviePosterImage, IMAGES_BASE_URL } from "../utils/constants";
+import {
+  fetchMovieCredits,
+  fetchMovieDetails,
+  fetchSimilarMovies,
+  imageOriginal,
+} from "../api/moviesdb";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "../../firebase-config";
+import { useAuth } from "../contexts/AuthProvider";
+import { set } from "lodash";
 
 const movieName = "In the Lost Lands";
 const window = Dimensions.get("window");
@@ -23,13 +40,91 @@ const ios = Platform.OS === "ios";
 const MarginTop = ios ? 0 : "mt-10";
 
 function MovieScreen() {
-  const { params: item } = useRoute();
+  const usersCollectionRef = collection(db, "users");
+  const { params: movie } = useRoute();
+  const { currentUser } = useAuth();
   const navigation = useNavigation();
-  const [isFavorite, setIsFavoirte] = useState(false);
-  const [castMembers, setCastMembers] = useState([1, 2, 3, 4, 5]);
-  const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5]);
+
+  const [isFavorite, setIsFavorite] = useState(function () {
+    async function checkIfFavorite() {
+      try {
+        const data = await getDocs(usersCollectionRef);
+        const users = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        const user = users.find((user) => user.email === currentUser.email);
+        console.log(user);
+        const value = user.favoriteMovies.some((mov) => mov.id === movie.id);
+        setIsFavorite(value);
+      } catch (err) {
+        console.log(err.message);
+        setIsFavorite(false);
+      }
+    }
+    checkIfFavorite();
+  });
+  const [movieDetails, setMovieDetails] = useState(null);
+  const [similarMovies, setSimilarMovies] = useState([]);
+  const [castMembers, setCastMembers] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  useEffect(function () {
+    getMovieData();
+  }, []);
+
+  async function getMovieData() {
+    try {
+      const details = await fetchMovieDetails(movie.id);
+      setMovieDetails(details);
+      const similar = await fetchSimilarMovies(movie.id);
+      setSimilarMovies(similar.results);
+      const credits = await fetchMovieCredits(movie.id);
+      setCastMembers(credits.cast);
+
+      // console.log(similar);
+      // console.log(movie.id);
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleClickOnFavorite() {
+    console.log(currentUser);
+    try {
+      const data = await getDocs(usersCollectionRef);
+      const users = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      const user = users.find((user) => user.email === currentUser.email);
+      console.log(user);
+      const userDoc = doc(db, "users", user.id);
+
+      if (isFavorite) {
+        const newFields = {
+          favoriteMovies: user.favoriteMovies.filter(
+            (mov) => mov.id !== movie.id
+          ),
+        };
+        await updateDoc(userDoc, newFields);
+      } else {
+        const newFields = {
+          favoriteMovies: [
+            ...user.favoriteMovies,
+            // {
+            //   movie_id: movie.id,
+            //   posterPath: movie.poster_path,
+            //   title: movie.title,
+            // },
+            movie,
+          ],
+        };
+        await updateDoc(userDoc, newFields);
+      }
+      setIsFavorite(!isFavorite);
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
+  if (loading || !movieDetails) return <LoadingScreen />;
   return (
     <ScrollView
       contentContainerStyle={{ paddingBottom: 20 }}
@@ -46,7 +141,7 @@ function MovieScreen() {
           >
             <ChevronLeftIcon size="28" strokeWidth={2.5} color="white" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setIsFavoirte(!isFavorite)}>
+          <TouchableOpacity onPress={handleClickOnFavorite}>
             <HeartIcon
               size="35"
               strokeWidth={2.5}
@@ -60,7 +155,12 @@ function MovieScreen() {
           <>
             <View>
               <Image
-                source={require("../../assets/images/poster.webp")}
+                // source={require("../../assets/images/poster.webp")}
+                source={{
+                  uri:
+                    imageOriginal(movie.backdrop_path) ||
+                    fullbackMoviePosterImage,
+                }}
                 style={{ height: window.height * 0.55, width: window.width }}
                 resizeMode="cover"
               />
@@ -83,28 +183,29 @@ function MovieScreen() {
             >
               {/* title */}
               <Text className="text-white text-center text-3xl font-bold tracking-wider">
-                {movieName}
+                {movie.title}
               </Text>
               {/* Status, release, runtime */}
               <Text className="text-neutral-400 font-semibold text-base text-center">
-                Released - 2023 - 1h 30m
+                {movieDetails?.status} -{" "}
+                {movieDetails?.release_date.split("-")[0]} -{" "}
+                {movieDetails?.runtime} min
               </Text>
               <View className="flex-row justify-center mx-4 space-x-2">
-                <Text className="text-neutral-400 font-semibold text-base text-center">
-                  Action -
-                </Text>
-                <Text className="text-neutral-400 font-semibold text-base text-center">
-                  Thrill -
-                </Text>
-                <Text className="text-neutral-400 font-semibold text-base text-center">
-                  Comedy
-                </Text>
+                {movieDetails.genres.map((genre, index) => {
+                  return (
+                    <Text
+                      key={genre.id}
+                      className="text-neutral-400 font-semibold text-base text-center"
+                    >
+                      {genre.name}{" "}
+                      {index < movieDetails.genres.length - 1 ? "- " : ""}
+                    </Text>
+                  );
+                })}
               </View>
-              <Text className="text-neutral-400 mx-4 tracking-wide">
-                A queen sends the powerful and feared sorceress Gray Alys to the
-                ghostly wilderness of the Lost Lands in search of a magical
-                power, where the sorceress and her guide, the drifter Boyce must
-                outwit and outfight man and demon.
+              <Text className="text-neutral-400 mx-4 tracking-wide text-center mt-3">
+                {movie.overview}
               </Text>
             </View>
 

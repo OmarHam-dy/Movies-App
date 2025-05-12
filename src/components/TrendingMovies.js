@@ -19,16 +19,23 @@ import { Platform } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/core";
 import ListTitle from "./ListTitle";
+import { fullbackMoviePosterImage, IMAGES_BASE_URL } from "../utils/constants";
+import { imageOriginal } from "../api/moviesdb";
 
 const BlurView = Animated.createAnimatedComponent(_BlurView);
 const window = Dimensions.get("window");
 const PAGE_WIDTH = window.width / 2;
 
 const SlideItem = ({ item, handlePress }) => {
+  // console.log(item.poster_path);
+
   return (
     <TouchableWithoutFeedback onPress={() => handlePress(item)}>
       <Image
-        source={require("../../assets/images/poster.webp")}
+        source={{
+          uri: imageOriginal(item.poster_path) || fullbackMoviePosterImage,
+        }}
+        // source={require("../../assets/images/poster.webp")}
         style={{
           width: "100%",
           height: "100%",
@@ -42,15 +49,10 @@ const SlideItem = ({ item, handlePress }) => {
 const CustomItem = ({ item, index, animationValue, handlePress }) => {
   const maskStyle = useAnimatedStyle(() => {
     const opacity = interpolate(animationValue.value, [-1, 0, 1], [1, 0, 1]);
-
-    // console.log("opacity", opacity);
-
     return {
       opacity,
     };
   }, [animationValue]);
-
-  console.log("maskStyle", maskStyle);
 
   return (
     <View
@@ -87,6 +89,7 @@ function TrendingMovies({ movies }) {
   function handlePress(item) {
     navigation.navigate("Movie", item);
   }
+
   return (
     <View className="flex-1 my-3">
       <ListTitle title="Trending" custom="mx-4" />
@@ -104,7 +107,7 @@ function TrendingMovies({ movies }) {
           return (
             <CustomItem
               item={item}
-              key={index}
+              key={item.id}
               index={index}
               animationValue={animationValue}
               handlePress={handlePress}
