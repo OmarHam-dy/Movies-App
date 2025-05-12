@@ -14,14 +14,6 @@ const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     setCurrentUser(user);
-  //     navigation.navigate("Home");
-  //   }
-  //   setLoading(false);
-  // });
-
   async function handleLogin() {
     if (!email || !password) {
       setErrorMessage("Please fill in all fields");
@@ -48,27 +40,27 @@ const LoginScreen = () => {
 
   if (loading) return <LoadingScreen />;
   return (
-    <View className="flex-1 bg-white justify-center items-center px-6">
-      <Text className="text-2xl font-bold text-gray-800 mb-6">
-        Welcome Back
-      </Text>
+    <View className="flex-1 bg-neutral-900 justify-center items-center px-6">
+      <Text className="text-2xl font-bold text-white mb-6">Welcome Back</Text>
       <View className="w-full">
         <TextInput
-          className="bg-white p-4 rounded-lg mb-4 shadow-sm border border-gray-300"
+          className="bg-neutral-800 text-white p-4 rounded-lg mb-4 shadow-sm border border-gray-700"
           placeholder="Email"
+          placeholderTextColor="#9CA3AF"
           keyboardType="email-address"
           value={email}
           onChangeText={setEmail}
         />
         <TextInput
-          className="bg-white p-4 rounded-lg mb-6 shadow-sm border border-gray-300"
+          className="bg-neutral-800 text-white p-4 rounded-lg mb-6 shadow-sm border border-gray-700"
           placeholder="Password"
+          placeholderTextColor="#9CA3AF"
           secureTextEntry
           value={password}
           onChangeText={setPassword}
         />
         {errorMessage && (
-          <Text className="text-red-600 font-semibold mb-3">
+          <Text className="text-red-500 font-semibold mb-3">
             {errorMessage}!
           </Text>
         )}
@@ -79,13 +71,10 @@ const LoginScreen = () => {
           <Text className="text-white text-center font-semibold">Login</Text>
         </TouchableOpacity>
       </View>
-      <View className=" mt-4 flex-row justify-center items-center">
-        <Text className="text-gray-600 mr-1"> Don't have an account?</Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Registration")}
-          className=""
-        >
-          <Text className="text-blue-500 font-semibold">Sign Up</Text>
+      <View className="mt-4 flex-row justify-center items-center">
+        <Text className="text-gray-400 mr-1">Don't have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Registration")}>
+          <Text className="text-blue-400 font-semibold">Sign Up</Text>
         </TouchableOpacity>
       </View>
     </View>

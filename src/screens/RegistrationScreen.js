@@ -61,31 +61,36 @@ function RegistrationScreen() {
   if (loading) return <LoadingScreen />;
 
   return (
-    <View className="flex-1 justify-center px-4 bg-white">
-      <Text className="text-2xl font-bold mb-6 text-center">Sign Up</Text>
+    <View className="flex-1 justify-center px-4 bg-neutral-900">
+      <Text className="text-2xl font-bold mb-6 text-center text-white">
+        Sign Up
+      </Text>
       <TextInput
-        className="bg-white p-4 rounded-lg mb-4 shadow-sm border border-gray-300"
+        className="bg-neutral-800 text-white p-4 rounded-lg mb-4 shadow-sm border border-gray-600"
         placeholder="Name"
+        placeholderTextColor="#A3A3A3"
         value={name}
         onChangeText={setName}
       />
       <TextInput
-        className="bg-white p-4 rounded-lg mb-4 shadow-sm border border-gray-300"
+        className="bg-neutral-800 text-white p-4 rounded-lg mb-4 shadow-sm border border-gray-600"
         placeholder="Email"
+        placeholderTextColor="#A3A3A3"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
       />
       <TextInput
-        className="bg-white p-4 rounded-lg mb-4 shadow-sm border border-gray-300"
+        className="bg-neutral-800 text-white p-4 rounded-lg mb-4 shadow-sm border border-gray-600"
         placeholder="Password"
+        placeholderTextColor="#A3A3A3"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
       />
 
       {errorMessage && (
-        <Text className="text-red-600 font-semibold mb-3">{errorMessage}!</Text>
+        <Text className="text-red-400 font-semibold mb-3">{errorMessage}!</Text>
       )}
       <TouchableOpacity
         className="bg-blue-500 p-4 rounded-lg"
@@ -95,9 +100,9 @@ function RegistrationScreen() {
       </TouchableOpacity>
 
       <View className="mt-4 flex-row justify-center items-center">
-        <Text className="text-gray-600 mr-1">Do you have an account?</Text>
+        <Text className="text-gray-400 mr-1">Do you have an account?</Text>
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text className="text-blue-500 font-semibold">Sign in</Text>
+          <Text className="text-blue-400 font-semibold">Sign in</Text>
         </TouchableOpacity>
       </View>
     </View>
