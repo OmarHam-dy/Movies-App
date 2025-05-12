@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_KEY, BASE_URL, IMAGES_BASE_URL } from "../utils/constants";
+import { API_KEY, BASE_URL } from "../utils/constants";
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -23,9 +23,9 @@ const personDetailsEndpoint = (id) => `person/${id}`;
 const personMoviesEndpoint = (id) => `person/${id}/movie_credits`;
 
 export const imageOriginal = (path) =>
-  path ? `https://image.tmdb.org/t/p/w200/${path}` : null;
+  path ? `https://image.tmdb.org/t/p/w500/${path}` : null;
 export const image500 = (path) =>
-  path ? `https://image.tmdb.org/t/p/w200/${path}` : null;
+  path ? `https://image.tmdb.org/t/p/w342/${path}` : null;
 export const image200 = (path) =>
   path ? `https://image.tmdb.org/t/p/w200/${path}` : null;
 
