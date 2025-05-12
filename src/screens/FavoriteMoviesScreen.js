@@ -17,6 +17,7 @@ import { db } from "../../firebase-config";
 import { set } from "lodash";
 import { useAuth } from "../contexts/AuthProvider";
 import LoadingScreen from "./LoadingScreen";
+import { fullbackMoviePosterImage } from "../utils/constants";
 
 const window = Dimensions.get("window");
 

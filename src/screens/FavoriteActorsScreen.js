@@ -21,6 +21,7 @@ import { db } from "../../firebase-config";
 import { set } from "lodash";
 import { useAuth } from "../contexts/AuthProvider";
 import LoadingScreen from "./LoadingScreen";
+import { fullbackPersonImage } from "../utils/constants";
 
 const window = Dimensions.get("window");
 
@@ -113,7 +114,7 @@ function FavoriteActorsScreen() {
                           source={{
                             uri:
                               image500(movie.poster_path) ||
-                              fullbackMoviePosterImage,
+                              fullbackPersonImage,
                           }}
                           className="rounded-3xl mt-3"
                           style={{
