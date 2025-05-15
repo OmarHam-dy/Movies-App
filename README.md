@@ -12,12 +12,16 @@
 
 ## Overview
 
-![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screensDesign/1.PNG)
-![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screensDesign/2.PNG)
-![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screensDesign/3.PNG)
-![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screensDesign/4.PNG)
-![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screensDesign/5.PNG)
-
+![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/1.jpg)
+![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/2.jpg)
+![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/3.jpg)
+![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/4.jpg)
+![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/5.jpg)
+![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/6.jpg)
+![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/7.jpg)
+![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/8.jpg)
+![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/9.jpg)
+![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/10.jpg)
 
 ### Built With
 

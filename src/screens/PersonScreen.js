@@ -47,7 +47,7 @@ function PersonScreen() {
         const data = await getDocs(usersCollectionRef);
         const users = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         const user = users.find((user) => user.email === currentUser.email);
-        console.log(user);
+        // console.log(user);
         const value = user.favoriteActors.some(
           (actor) => actor.id === member.id
         );

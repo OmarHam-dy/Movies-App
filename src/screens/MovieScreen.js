@@ -51,7 +51,7 @@ function MovieScreen() {
         const data = await getDocs(usersCollectionRef);
         const users = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         const user = users.find((user) => user.email === currentUser.email);
-        console.log(user);
+        // console.log(user);
         const value = user.favoriteMovies.some((mov) => mov.id === movie.id);
         setIsFavorite(value);
       } catch (err) {
@@ -89,12 +89,12 @@ function MovieScreen() {
   }
 
   async function handleClickOnFavorite() {
-    console.log(currentUser);
+    // console.log(currentUser);
     try {
       const data = await getDocs(usersCollectionRef);
       const users = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       const user = users.find((user) => user.email === currentUser.email);
-      console.log(user);
+      // console.log(user);
       const userDoc = doc(db, "users", user.id);
 
       if (isFavorite) {
