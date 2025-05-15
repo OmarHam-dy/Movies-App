@@ -28,9 +28,11 @@
 ![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/9.jpg)
 ![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/10.jpg) -->
 
+
+
 <!-- Colours -->
 
-## Colours used
+## Colours
 
 Black (#000000): Used for the background, creating a sleek and cinematic feel.
 
@@ -41,6 +43,8 @@ Blue (#007AFF): Found in the buttons and some UI elements, providing a vibrant p
 Gray (#808080 - #A0A0A0): Subtle variations may be used for secondary text or UI accents.
 
 Additional Colors: The movie posters contain a mix of colors based on their individual artwork.
+
+
 
 ### Built With
 
