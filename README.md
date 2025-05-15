@@ -29,15 +29,6 @@
 ![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/9.jpg)
 ![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/10.jpg) -->
 
-### Built With
-
-<!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
-
-- React Native
-- TailwindCSS
-- Firebase
-- Axios
-
 <!-- Colours -->
 
 ## Colours
@@ -64,6 +55,15 @@
 - Montserrat
 
 - Lato
+
+## Built With
+
+<!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
+
+- React Native
+- TailwindCSS
+- Firebase
+- Axios
 
 ## Contact
 
