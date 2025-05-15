@@ -5,7 +5,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Colours](#Colours used)
+- [Colours](#colours)
 - [Built With](#built-with)
 - [Contact](#contact)
 - 
