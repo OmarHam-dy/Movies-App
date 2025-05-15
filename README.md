@@ -46,9 +46,9 @@
 
 - White (#FFFFFF): Used for text and icons, ensuring readability and contrast.
 
-- Blue (#007AFF): Found in the buttons and some UI elements, providing a vibrant pop.
+- Blue (#007AFF): Used in the buttons and some UI elements, providing a vibrant pop.
 
-- Gray (#808080 - #A0A0A0): Subtle variations may be used for secondary text or UI accents.
+- Gray (#808080 - #A0A0A0): Subtle variations used for secondary text or UI accents.
 
 - Additional Colors: The movie posters contain a mix of colors based on their individual artwork.
 
