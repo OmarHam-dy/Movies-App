@@ -7,6 +7,7 @@
 - [Overview](#overview)
 - [Built With](#built-with)
 - [Contact](#contact)
+- [Colours](#colours)
 
 <!-- OVERVIEW -->
 
@@ -25,6 +26,20 @@
 ![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/8.jpg)
 ![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/9.jpg)
 ![screenshot](https://raw.githubusercontent.com/OmarHam-dy/Movies-App/main/screenshots/10.jpg) -->
+
+<!-- Colours -->
+
+## Colours used
+
+Black (#000000): Used for the background, creating a sleek and cinematic feel.
+
+White (#FFFFFF): Used for text and icons, ensuring readability and contrast.
+
+Blue (#007AFF): Found in the buttons and some UI elements, providing a vibrant pop.
+
+Gray (#808080 - #A0A0A0): Subtle variations may be used for secondary text or UI accents.
+
+Additional Colors: The movie posters contain a mix of colors based on their individual artwork.
 
 ### Built With
 
